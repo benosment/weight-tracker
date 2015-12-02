@@ -2,6 +2,8 @@
 
 import argparse
 from datetime import datetime
+import pandas as pd
+import matplotlib.pyplot as plt
 
 weight_file = '/home/ben/Dropbox/personal/weight.csv'
 
@@ -19,9 +21,21 @@ def log_weight(weight):
     ''' write todays date and weight'''
     d = '{0:%b %d %Y}'.format(datetime.now())
     with open(weight_file, 'a') as f:
-        f.write('%s, %s' % (d, weight))
+        f.write('%s, %s\n' % (d, weight))
+
+
+def generate_graph():
+    weight_data = pd.read_csv(weight_file)
+    # convert the formatted date back into a datetime object
+    dates = []
+    for formatted_date in weight_data['date']:
+        dates.append(datetime.strptime(formatted_date, '%b %d %Y'))
+    plt.plot(dates, weight_data.iloc[:, 1])
+    plt.gcf().autofmt_xdate()
+    plt.show()
+
 
 if __name__ == '__main__':
     args = parse_args()
     log_weight(args.weight)
-    #generate_graph(weight_file)
+    generate_graph()
