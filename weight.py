@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
-weight_file = '/home/ben/Dropbox/personal/weight.csv'
+weight_file = '/home/ben/Documents/personal/weight.csv'
 
 
 def parse_args():
